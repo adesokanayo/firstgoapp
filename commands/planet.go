@@ -5,6 +5,7 @@ import (
 	"os"
 
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 // RootCMD Exported Variable
@@ -26,4 +27,25 @@ func Execute() {
 		fmt.Println(err)
 		os.Exit(-1)
 	}
+}
+
+//CfgFile is exported
+var CfgFile string
+
+func init() {
+
+	cobra.OnInitialize(initConfig)
+	RootCMD.PersistentFlags().StringVar(&CfgFile, "config", "", "config file (default is $HOME/dagobah/config.yaml)")
+}
+
+func initConfig() {
+
+	if CfgFile != "" {
+		viper.SetConfigFile(CfgFile)
+	}
+
+	viper.SetConfigName("config")
+	viper.AddConfigPath("etc/dagobah/")
+	viper.AddConfigPath("etc/dagobah/")
+	viper.ReadInConfig()
 }
