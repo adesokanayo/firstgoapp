@@ -46,6 +46,6 @@ func initConfig() {
 
 	viper.SetConfigName("config")
 	viper.AddConfigPath("etc/dagobah/")
-	viper.AddConfigPath("etc/dagobah/")
+	viper.AddConfigPath("$HOME/.dagobah/")
 	viper.ReadInConfig()
 }
