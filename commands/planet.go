@@ -8,28 +8,41 @@ import (
 	"github.com/spf13/viper"
 )
 
-// RootCMD Exported Variable
+// RootCMD is a cobra command that will be executed main
 var RootCMD = &cobra.Command{
 
-	Use:   "Dagobah",
-	Short: `Dagobah is an awesome planet style RSS aggregator`,
-	Long:  `Dagobah provides planet style RSS aggregation. It is inspired by python planet. It has a simple YAML configuration and provides it's own webserver.`,
-	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("Dagobah Runs")
-	},
+	Use:   "...",
+	Short: `...`,
+	Long:  `...`,
+	Run:   rootRun,
 }
 
-//Execute will run the cobra commands.
+func rootRun(cmd *cobra.Command, args []string) {
+
+	fmt.Println(viper.Get("feeds"))
+	fmt.Println(viper.GetString("appname"))
+
+}
+
+//Execute will run the RootCMD command  but just before, it will add more commands.
 func Execute() {
+
+	addCommands()
 
 	err := RootCMD.Execute()
 	if err != nil {
 		fmt.Println(err)
+		fmt.Println("something is wrong ")
 		os.Exit(-1)
 	}
 }
 
-//CfgFile is exported
+func addCommands() {
+
+	RootCMD.AddCommand(fetchCmd)
+}
+
+//CfgFile is the name of the variable that will stores the configuration.
 var CfgFile string
 
 func init() {
