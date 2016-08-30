@@ -40,6 +40,7 @@ func Execute() {
 func addCommands() {
 
 	RootCMD.AddCommand(fetchCmd)
+	RootCMD.AddCommand(serverCmd)
 }
 
 //CfgFile is the name of the variable that will stores the configuration.
